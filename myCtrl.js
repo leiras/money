@@ -14,8 +14,8 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.loadCategories();
 
 	$scope.addExpense = function(expense) {
-		expense.date = moment(expense.data_js, 'DD/MM/YYYY').unix()*1000;
-		//alert(new Date(parseInt(x*1000))+' ; '+new Date(parseInt(x))+' ; '+d.data_js+' ; '+d.data+' ; '+new Date(parseInt(d.data)));
+		expense.date = moment(expense.jsDate, 'DD/MM/YYYY').unix()*1000;
+		//alert(expense.value+' ; '+expense.category.name+' ; '+expense.date+' ; '+expense.jsDate);
 		$http.post("http://localhost:8080/money-be/expenses", expense).then(function(response) {	
 			$scope.loadExpenses();		
 		});		
@@ -49,6 +49,7 @@ app.controller('myCtrl', function($scope, $http) {
 		$scope.modalDisabled = false;
 		$scope.clearTempExpense();
 		$scope.tempExpense.jsDate = new Date();
+		$scope.tempExpense.date = moment($scope.tempExpense.jsDate, 'DD/MM/YYYY').unix()*1000;
 	};	
 	
 	$scope.updateButtomPressed = function(expense) {
